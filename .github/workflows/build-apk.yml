@@ -1,0 +1,48 @@
+name: Build Android APK
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 设置 Node.js 环境
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: 安装项目依赖
+        run: |
+          npm install
+          npm install @capacitor/core @capacitor/cli @capacitor/android
+
+      - name: 设置 Java JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: 同步 Capacitor 工程
+        run: |
+          npx cap sync android
+
+      - name: 赋予 Gradle 执行权限
+        run: chmod +x android/gradlew
+
+      - name: 编译 Debug APK
+        run: |
+          cd android
+          ./gradlew assembleDebug --stacktrace
+
+      - name: 上传生成的 APK 文件
+        uses: actions/upload-artifact@v4
+        with:
+          name: IMApp-Release
+          path: android/app/build/outputs/apk/debug/app-debug.apk

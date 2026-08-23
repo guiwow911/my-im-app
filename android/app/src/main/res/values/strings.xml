@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">IMApp</string>
+    <string name="title_activity_main">IMApp</string>
+    <string name="package_name">com.chat.imapp</string>
+    <string name="custom_url_scheme">com.chat.imapp</string>
+</resources>

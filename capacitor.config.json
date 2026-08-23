@@ -1,0 +1,9 @@
+{
+  "appId": "com.chat.imapp",
+  "appName": "IMApp",
+  "webDir": "www",
+  "server": {
+    "url": "https://chat-backend-dvgo.onrender.com/",
+    "cleartext": true
+  }
+}
